@@ -22,4 +22,10 @@
     <style name="Theme.DemoBank.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.DemoBank.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="CardToggleSwitchTheme">
+        <item name="colorControlActivated">@color/teal_200</item>
+        <item name="colorSwitchThumbNormal">@color/white</item>
+        <item name="android:colorForeground">@color/white</item>
+    </style>
 </resources>

@@ -1,5 +1,6 @@
 package cl.tinet.demobank.ui.home.presentation
 
+import cl.tinet.demobank.data.model.Account
 import javax.inject.Inject
 
 class HomePresenter @Inject constructor(
@@ -18,6 +19,7 @@ class HomePresenter @Inject constructor(
     
     override fun initView() {
         loadHomeContent()
+        loadAccounts()
     }
     
     override fun unbindView() {
@@ -25,11 +27,42 @@ class HomePresenter @Inject constructor(
     }
     
     override fun loadHomeContent() {
+        val homeText = "Mis cuentas"
+        view?.showHomeText(homeText)
+    }
+    
+    override fun loadAccounts() {
         view?.showLoading()
         
-        // Simulate loading content
-        val homeText = "Welcome to DemoBank - Your digital banking solution"
+        // Mock account data matching the reference image
+        val mockAccounts = listOf(
+            Account(
+                id = "1",
+                type = "Cuenta Sueldo",
+                balance = 9560.00,
+                currency = "$ /"
+            ),
+            Account(
+                id = "2", 
+                type = "Cuenta Free",
+                balance = 152.00,
+                currency = "$ /"
+            ),
+            Account(
+                id = "3",
+                type = "Visa Signature",
+                balance = 1500.00,
+                currency = "US$ "
+            ),
+            Account(
+                id = "4",
+                type = "Préstamos",
+                balance = 2457.23,
+                currency = "US$ "
+            )
+        )
+        
         view?.hideLoading()
-        view?.showHomeText(homeText)
+        view?.showAccounts(mockAccounts)
     }
 }
