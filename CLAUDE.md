@@ -27,9 +27,8 @@ This is an Android application called "DemoBank" (package: `cl.tinet.demobank`) 
 
 ### UI Structure
 - **MainActivity**: Main entry point with navigation drawer using `DrawerLayout` and `NavigationView`
-- **Fragment-based navigation**: Uses Android Navigation Component with three fragments:
+- **Fragment-based navigation**: Uses Android Navigation Component with two fragments:
   - `HomeFragment` - Main content area
-  - `GalleryFragment` - Gallery/media section  
   - `SlideshowFragment` - Slideshow functionality
 - **MVVM Pattern**: Each fragment has corresponding ViewModel (e.g., `HomeViewModel`)
 
@@ -46,7 +45,6 @@ cl.tinet.demobank/
 ├── MainActivity.kt - Main activity with drawer navigation
 └── ui/
     ├── home/ - Home section (Fragment + ViewModel)
-    ├── gallery/ - Gallery section (Fragment + ViewModel)  
     └── slideshow/ - Slideshow section (Fragment + ViewModel)
 ```
 
