@@ -1,12 +1,21 @@
 package cl.tinet.demobank.ui.login.presentation
 
 import cl.tinet.demobank.ui.login.di.scope.LoginScope
+import cl.tinet.demobank.ui.login.domain.LoginUseCase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @LoginScope
-class LoginPresenter @Inject constructor() : LoginContract.Presenter {
+class LoginPresenter @Inject constructor(
+    private val loginUseCase: LoginUseCase
+) : LoginContract.Presenter {
     
     private var view: LoginContract.View? = null
+    private val presenterJob = Job()
+    private val presenterScope = CoroutineScope(Dispatchers.Main + presenterJob)
     
     override fun attachView(view: LoginContract.View) {
         this.view = view
@@ -17,6 +26,7 @@ class LoginPresenter @Inject constructor() : LoginContract.Presenter {
     }
     
     override fun unbindView() {
+        presenterJob.cancel()
         detachView()
     }
     
@@ -28,18 +38,20 @@ class LoginPresenter @Inject constructor() : LoginContract.Presenter {
         
         view?.showLoading()
         
-        // Simulamos validación simple - en un caso real sería una llamada a API
-        if (isValidCredentials(username, password)) {
-            view?.hideLoading()
-            view?.navigateToHome()
-        } else {
-            view?.hideLoading()
-            view?.showLoginError("Usuario o contraseña incorrectos")
+        presenterScope.launch {
+            try {
+                val response = loginUseCase.execute(username, password)
+                view?.hideLoading()
+                
+                if (response.success && !response.token.isNullOrEmpty()) {
+                    view?.navigateToHome()
+                } else {
+                    view?.showLoginError(response.message ?: "Error desconocido")
+                }
+            } catch (e: Exception) {
+                view?.hideLoading()
+                view?.showLoginError(e.message ?: "Error de conexión")
+            }
         }
-    }
-    
-    private fun isValidCredentials(username: String, password: String): Boolean {
-        // Validación simple para demo - en producción sería contra un servicio real
-        return username == "admin" && password == "123456"
     }
 }
