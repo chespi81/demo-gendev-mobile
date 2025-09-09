@@ -13,4 +13,11 @@
     <string name="account_details">Account details</string>
     <string name="turn_my_card_on_off">Turn My Card On/Off</string>
     <string name="close">Close</string>
+    
+    <!-- Logout functionality -->
+    <string name="menu_logout">Cerrar Sesión</string>
+    <string name="logout_confirmation_title">Cerrar Sesión</string>
+    <string name="logout_confirmation_message">¿Está seguro que desea cerrar sesión?</string>
+    <string name="logout_yes">Sí</string>
+    <string name="logout_no">No</string>
 </resources>
