@@ -21,7 +21,8 @@ data class LoginResponseModel(
         return LoginResponse(
             success = authenticated ?: false,
             token = token,
-            message = message ?: error
+            message = message ?: error,
+            userId = ownerId
         )
     }
 }

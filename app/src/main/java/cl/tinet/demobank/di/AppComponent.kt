@@ -5,6 +5,7 @@ import cl.tinet.demobank.DemoBankApplication
 import cl.tinet.demobank.di.module.ActivityModule
 import cl.tinet.demobank.di.module.AppModule
 import cl.tinet.demobank.di.module.NetworkModule
+import cl.tinet.demobank.di.module.SessionModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -16,7 +17,8 @@ import javax.inject.Singleton
         AndroidInjectionModule::class,
         AppModule::class,
         ActivityModule::class,
-        NetworkModule::class
+        NetworkModule::class,
+        SessionModule::class
     ]
 )
 interface AppComponent {

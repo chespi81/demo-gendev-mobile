@@ -1,6 +1,7 @@
 package cl.tinet.demobank.di.module
 
 import cl.tinet.demobank.MainActivity
+import cl.tinet.demobank.SplashActivity
 import cl.tinet.demobank.ui.cardonoff.di.module.CardOnOffPresentationModule
 import cl.tinet.demobank.ui.home.di.module.HomePresentationModule
 import cl.tinet.demobank.ui.login.LoginActivity
@@ -10,6 +11,9 @@ import dagger.android.ContributesAndroidInjector
 
 @Module
 abstract class ActivityModule {
+    
+    @ContributesAndroidInjector
+    abstract fun contributeSplashActivity(): SplashActivity
     
     @cl.tinet.demobank.ui.login.di.scope.LoginScope
     @ContributesAndroidInjector(

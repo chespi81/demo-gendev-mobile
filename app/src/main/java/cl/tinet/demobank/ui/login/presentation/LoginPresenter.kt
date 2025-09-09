@@ -1,5 +1,6 @@
 package cl.tinet.demobank.ui.login.presentation
 
+import cl.tinet.demobank.data.session.SessionManager
 import cl.tinet.demobank.ui.login.di.scope.LoginScope
 import cl.tinet.demobank.ui.login.domain.LoginUseCase
 import kotlinx.coroutines.CoroutineScope
@@ -10,7 +11,8 @@ import javax.inject.Inject
 
 @LoginScope
 class LoginPresenter @Inject constructor(
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUseCase,
+    private val sessionManager: SessionManager
 ) : LoginContract.Presenter {
     
     private var view: LoginContract.View? = null
@@ -44,6 +46,12 @@ class LoginPresenter @Inject constructor(
                 view?.hideLoading()
                 
                 if (response.success && !response.token.isNullOrEmpty()) {
+                    // Save user session
+                    sessionManager.saveUserSession(
+                        token = response.token,
+                        username = username,
+                        userId = response.userId
+                    )
                     view?.navigateToHome()
                 } else {
                     view?.showLoginError(response.message ?: "Error desconocido")

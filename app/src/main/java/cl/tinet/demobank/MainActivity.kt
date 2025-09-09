@@ -14,6 +14,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import cl.tinet.demobank.data.session.SessionManager
 import cl.tinet.demobank.databinding.ActivityMainBinding
 import cl.tinet.demobank.ui.login.LoginActivity
 import dagger.android.AndroidInjection
@@ -26,6 +27,9 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
 
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
+
+    @Inject
+    lateinit var sessionManager: SessionManager
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
@@ -102,9 +106,10 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
     }
 
     private fun performLogout() {
-        // Clear any session data if needed (e.g., SharedPreferences, tokens, etc.)
-        // For now, we'll just navigate to login activity
+        // Clear user session data
+        sessionManager.clearSession()
         
+        // Navigate to login activity
         val intent = Intent(this, LoginActivity::class.java).apply {
             // Clear the activity stack to prevent going back
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
