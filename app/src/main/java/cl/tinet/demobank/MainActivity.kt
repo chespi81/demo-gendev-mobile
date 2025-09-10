@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
@@ -61,6 +62,9 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         
+        // Update navigation header with user info
+        updateNavigationHeader(navView)
+        
         // Setup logout menu item listener
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
@@ -90,6 +94,17 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
     }
 
     override fun androidInjector(): AndroidInjector<Any> = androidInjector
+
+    private fun updateNavigationHeader(navView: NavigationView) {
+        val headerView = navView.getHeaderView(0)
+        val navHeaderSubtitle = headerView.findViewById<TextView>(R.id.nav_header_subtitle)
+        
+        // Get username from session
+        val username = sessionManager.getUsername()
+        if (!username.isNullOrEmpty()) {
+            navHeaderSubtitle.text = username
+        }
+    }
 
     private fun showLogoutConfirmationDialog() {
         AlertDialog.Builder(this)

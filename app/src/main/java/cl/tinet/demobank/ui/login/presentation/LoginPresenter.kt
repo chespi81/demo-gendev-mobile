@@ -46,10 +46,10 @@ class LoginPresenter @Inject constructor(
                 view?.hideLoading()
                 
                 if (response.success && !response.token.isNullOrEmpty()) {
-                    // Save user session
+                    // Save user session using username from server response
                     sessionManager.saveUserSession(
                         token = response.token,
-                        username = username,
+                        username = response.username ?: username, // Use server username or fallback to form username
                         userId = response.userId
                     )
                     view?.navigateToHome()

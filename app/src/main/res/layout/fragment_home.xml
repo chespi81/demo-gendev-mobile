@@ -48,16 +48,6 @@
             android:layout_height="1dp"
             android:layout_weight="1" />
 
-        <TextView
-            android:id="@+id/tv_total_accounts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Total mis cuentas"
-            android:textColor="@color/design_default_color_primary"
-            android:textSize="16sp"
-            android:padding="12dp"
-            android:background="?android:attr/selectableItemBackground" />
-
     </LinearLayout>
 
 </LinearLayout>
